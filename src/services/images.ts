@@ -5,7 +5,7 @@ export const images: Service[] = [
     { label: "post", url: "https://imgur.com/{id}" },
     { label: "album", url: "https://imgur.com/a/{id}" },
     { label: "image", url: "https://imgur.com/i/{id}" },
-  ] },
+  ], notFound: ["requested page could not be found", "removed or deleted"] },
   { id: "imgflip", name: "Imgflip", category: "images", templates: [{ url: "https://imgflip.com/i/{id}" }] },
   { id: "imgbb", name: "ImgBB", category: "images", templates: [{ url: "https://ibb.co/{id}" }] },
   { id: "gyazo", name: "Gyazo", category: "images", templates: [{ url: "https://gyazo.com/{id}" }], len: 32 },
