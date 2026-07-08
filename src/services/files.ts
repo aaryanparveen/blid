@@ -15,7 +15,10 @@ export const files: Service[] = [
   { id: "gofile", name: "GoFile", category: "files", templates: [{ url: "https://gofile.io/d/{id}" }], verify: false },
   { id: "pixeldrain", name: "Pixeldrain", category: "files", templates: [{ url: "https://pixeldrain.com/u/{id}" }] },
   { id: "filebin", name: "Filebin", category: "files", templates: [{ url: "https://filebin.net/{id}" }], notFound: ["this bin is empty"] },
-  { id: "fuckingfast", name: "FuckingFast", category: "files", templates: [{ url: "https://fuckingfast.co/{id}" }] },
+  { id: "fuckingfast", name: "FuckingFast", category: "files", templates: [
+    { label: "co", url: "https://fuckingfast.co/{id}" },
+    { label: "net", url: "https://fuckingfast.net/{id}" },
+  ] },
   { id: "krakenfiles", name: "Krakenfiles", category: "files", templates: [{ url: "https://krakenfiles.com/view/{id}" }] },
   { id: "sendspace", name: "Sendspace", category: "files", templates: [{ url: "https://www.sendspace.com/file/{id}" }] },
   { id: "bayfiles", name: "Bayfiles", category: "files", templates: [{ url: "https://bayfiles.com/{id}" }] },
