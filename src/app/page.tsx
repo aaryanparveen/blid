@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { SERVICES, CATEGORIES, CATEGORY_MAP, POPULARITY } from "@/services";
+import { SERVICES, TOTAL_LINKS, CATEGORIES, CATEGORY_MAP, POPULARITY } from "@/services";
 import type { CategoryId, Service, Category } from "@/services/types";
 import type { ProbeResult } from "@/lib/probe";
 import { probe, runPool } from "@/lib/probe";
@@ -22,6 +22,7 @@ const POP_RANK = new Map(POPULARITY.map((id, i) => [id, i]));
 const popRank = (id: string) => POP_RANK.get(id) ?? Infinity;
 
 function lenOk(s: Service, code: string) {
+  if (s.numeric && /[a-z]/i.test(code)) return false;
   const len = s.len;
   if (len == null) return true;
   const L = code.length;
@@ -33,6 +34,7 @@ export default function Page() {
   const [autoTest, setAutoTest] = useState(true);
   const [extract, setExtract] = useState(true);
   const [onlyFound, setOnlyFound] = useState(true);
+  const [onlyNa, setOnlyNa] = useState(false);
   const [disabled, setDisabled] = useState<Set<CategoryId>>(new Set());
   const [statuses, setStatuses] = useState<Record<string, ProbeResult>>({});
   const [history, setHistory] = useState<string[]>([]);
@@ -166,11 +168,17 @@ export default function Page() {
   }, [allUrls, statuses]);
 
   const shown = useMemo<Candidate[]>(() => {
-    if (!onlyFound) return candidates;
+    if (!onlyFound && !onlyNa) return candidates;
     return candidates
-      .map((c) => ({ ...c, rows: c.rows.filter((r) => statuses[r.url]?.state === "found") }))
+      .map((c) => ({
+        ...c,
+        rows: c.rows.filter((r) => {
+          const st = statuses[r.url]?.state;
+          return (onlyFound && st === "found") || (onlyNa && st === "uncheck");
+        }),
+      }))
       .filter((c) => c.rows.length > 0);
-  }, [candidates, onlyFound, statuses]);
+  }, [candidates, onlyFound, onlyNa, statuses]);
 
   const toggleCategory = (id: CategoryId) =>
     setDisabled((prev) => {
@@ -199,7 +207,7 @@ export default function Page() {
         {code && showStatus ? (
           <span className="border border-line bg-bg-1/80 px-2.5 py-1.5 font-mono text-[0.66rem] backdrop-blur-md">
             <span className="text-up">{counts.found}</span>
-            <span className="text-tx-3">/{allUrls.length}</span>
+            <span className="text-tx-3">/{TOTAL_LINKS}</span>
           </span>
         ) : null}
         <button
@@ -305,6 +313,7 @@ export default function Page() {
             <Toggle on={autoTest} onClick={() => setAutoTest((v) => !v)} label="Auto-test" icon="bolt" />
             <Toggle on={extract} onClick={() => setExtract((v) => !v)} label="Extract code" icon="link" />
             <Toggle on={onlyFound} onClick={() => setOnlyFound((v) => !v)} label="Only found" icon="filter" />
+            <Toggle on={onlyNa} onClick={() => setOnlyNa((v) => !v)} label="Only n/a" icon="info" />
             {!autoTest && code ? (
               <IconButton onClick={() => { setManual(true); runProbes(targets, seedBase); }} label="Test all" icon="refresh" />
             ) : null}
@@ -374,7 +383,7 @@ export default function Page() {
       </main>
       <footer className="relative z-10 border-t border-line px-5 py-3">
         <p className="flex items-center justify-center gap-2 font-mono text-[0.62rem] tracking-wide text-tx-3">
-          <span>{SERVICES.length} sites</span>
+          <span>{TOTAL_LINKS} sites</span>
           <span>| n/a means you have to check manually because the site doesn't return clean identifiers</span>
         </p>
       </footer>

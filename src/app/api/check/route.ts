@@ -7,6 +7,9 @@ import { SERVICES } from "@/services";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+export const maxDuration = 30;
+
+const ON_VERCEL = !!process.env.VERCEL;
 
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
@@ -54,13 +57,15 @@ const lookup: LookupFunction = (hostname, options, cb) => {
     .catch((e) => cb(e as NodeJS.ErrnoException, "", 4));
 };
 
-const dispatcher = new Agent({
-  connect: { lookup, timeout: 8000 },
-  headersTimeout: 9000,
-  bodyTimeout: 9000,
-});
+const dispatcher: Agent | undefined = ON_VERCEL
+  ? undefined
+  : new Agent({
+      connect: { lookup, timeout: 8000 },
+      headersTimeout: 9000,
+      bodyTimeout: 9000,
+    });
 
-const impit = new Impit({ browser: "chrome", followRedirects: true });
+const impit = ON_VERCEL ? null : new Impit({ browser: "chrome", followRedirects: true });
 
 function baseDomain(host: string): string {
   return host.split(".").slice(-2).join(".");
@@ -101,6 +106,7 @@ async function viaImpit(
   markers?: string[],
   foundMarkers?: string[],
 ): Promise<{ state: string; status: number } | null> {
+  if (!impit) return null;
   try {
     const ir = await Promise.race([
       impit.fetch(url),
@@ -133,7 +139,7 @@ export async function GET(req: NextRequest) {
   const foundMarkers = svc?.found;
   const wantBody = !!((markers && markers.length) || (foundMarkers && foundMarkers.length));
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 11000);
+  const timer = setTimeout(() => ctrl.abort(), ON_VERCEL ? 9000 : 11000);
 
   try {
     let host = "";
@@ -163,7 +169,7 @@ export async function GET(req: NextRequest) {
       } catch {}
     }
 
-    if (state === "uncheck" && (status === 401 || status === 403 || status === 429 || status === 503)) {
+    if (!ON_VERCEL && state === "uncheck" && (status === 401 || status === 403 || status === 429 || status === 503)) {
       const alt = await viaImpit(url, wantBody, markers, foundMarkers);
       if (alt) {
         state = alt.state;

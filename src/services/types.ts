@@ -28,6 +28,7 @@ export interface Service {
   category: CategoryId;
   templates: LinkTemplate[];
   len?: number | [number, number];
+  numeric?: boolean;
   notFound?: string[];
   found?: string[];
   verify?: boolean;
