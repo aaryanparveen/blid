@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-0: #060607;
+  --color-bg-1: #0d0d0f;
+  --color-bg-2: #131315;
+  --color-bg-3: #1b1b1e;
+  --color-bg-4: #232327;
+
+  --color-tx-0: #ededf0;
+  --color-tx-1: #9898a8;
+  --color-tx-2: #5c5c70;
+  --color-tx-3: #3c3c50;
+
+  --color-red: #c43050;
+  --color-red-soft: #d04060;
+  --color-red-dim: #9a2540;
+
+  --color-line: rgba(255, 255, 255, 0.06);
+  --color-line-2: rgba(255, 255, 255, 0.11);
+
+  --color-up: #1ca868;
+  --color-down: #c44828;
+  --color-unknown: #c49028;
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jbmono), monospace;
+}
+
+html {
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+}
+
+body {
+  background: var(--color-bg-0);
+  color: var(--color-tx-0);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(90% 55% at 50% -8%, rgba(196, 48, 80, 0.13), transparent 60%),
+    radial-gradient(120% 120% at 50% 0%, transparent 55%, rgba(0, 0, 0, 0.55));
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 150px;
+}
+
+::selection {
+  background: rgba(196, 48, 80, 0.25);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-red);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

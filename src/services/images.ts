@@ -1,0 +1,33 @@
+import type { Service } from "./types";
+
+export const images: Service[] = [
+  { id: "imgur", name: "Imgur", category: "images", templates: [
+    { label: "post", url: "https://imgur.com/{id}" },
+    { label: "album", url: "https://imgur.com/a/{id}" },
+    { label: "image", url: "https://imgur.com/i/{id}" },
+  ] },
+  { id: "imgflip", name: "Imgflip", category: "images", templates: [{ url: "https://imgflip.com/i/{id}" }] },
+  { id: "imgbb", name: "ImgBB", category: "images", templates: [{ url: "https://ibb.co/{id}" }] },
+  { id: "gyazo", name: "Gyazo", category: "images", templates: [{ url: "https://gyazo.com/{id}" }], len: 32 },
+  { id: "lightshot", name: "Lightshot", category: "images", templates: [{ url: "https://prnt.sc/{id}" }], len: 6 },
+  { id: "postimage", name: "PostImage", category: "images", templates: [{ url: "https://postimg.cc/{id}" }] },
+  { id: "catbox", name: "Catbox", category: "images", templates: [{ url: "https://files.catbox.moe/{id}" }] },
+  { id: "imgchest", name: "ImgChest", category: "images", templates: [{ url: "https://imgchest.com/p/{id}" }] },
+  { id: "snipboard", name: "Snipboard", category: "images", templates: [{ url: "https://snipboard.io/{id}" }], notFound: ["upload and share screenshots"] },
+  { id: "flickr", name: "Flickr", category: "images", templates: [{ url: "https://www.flickr.com/photos/{id}" }] },
+  { id: "px500", name: "500px", category: "images", templates: [{ url: "https://500px.com/photo/{id}" }], verify: false },
+  { id: "imgbox", name: "Imgbox", category: "images", templates: [{ url: "https://imgbox.com/{id}" }], notFound: ["fast, simple image host"] },
+  { id: "freeimage", name: "FreeImage", category: "images", templates: [{ url: "https://iili.io/{id}" }] },
+  { id: "giphy", name: "Giphy", category: "images", templates: [{ url: "https://giphy.com/gifs/{id}" }] },
+  { id: "tenor", name: "Tenor", category: "images", templates: [{ url: "https://tenor.com/view/{id}" }] },
+  { id: "deviantart", name: "DeviantArt", category: "images", templates: [{ url: "https://www.deviantart.com/{id}" }] },
+  { id: "pixiv", name: "Pixiv", category: "images", templates: [{ url: "https://www.pixiv.net/en/artworks/{id}" }] },
+  { id: "behance", name: "Behance", category: "images", templates: [{ url: "https://www.behance.net/{id}" }] },
+  { id: "dribbble", name: "Dribbble", category: "images", templates: [{ url: "https://dribbble.com/{id}" }] },
+  { id: "artstation", name: "ArtStation", category: "images", templates: [{ url: "https://www.artstation.com/{id}" }], verify: false },
+  { id: "unsplash", name: "Unsplash", category: "images", templates: [{ url: "https://unsplash.com/@{id}" }] },
+  { id: "pixabay", name: "Pixabay", category: "images", templates: [{ url: "https://pixabay.com/users/{id}" }] },
+  { id: "pexels", name: "Pexels", category: "images", templates: [{ url: "https://www.pexels.com/@{id}" }] },
+  { id: "sketchfab", name: "Sketchfab", category: "images", templates: [{ url: "https://sketchfab.com/3d-models/{id}" }] },
+  { id: "opensea", name: "OpenSea", category: "images", templates: [{ url: "https://opensea.io/{id}" }] },
+];

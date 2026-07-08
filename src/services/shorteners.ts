@@ -1,0 +1,21 @@
+import type { Service } from "./types";
+
+export const shorteners: Service[] = [
+  { id: "bitly", name: "Bitly", category: "shorteners", templates: [{ url: "https://bit.ly/{id}" }] },
+  { id: "tinyurl", name: "TinyURL", category: "shorteners", templates: [{ url: "https://tinyurl.com/{id}" }] },
+  { id: "googl", name: "Goo.gl", category: "shorteners", templates: [{ url: "https://goo.gl/{id}" }] },
+  { id: "tinycc", name: "Tiny.cc", category: "shorteners", templates: [{ url: "https://tiny.cc/{id}" }] },
+  { id: "isgd", name: "is.gd", category: "shorteners", templates: [{ url: "https://is.gd/{id}" }] },
+  { id: "vgd", name: "v.gd", category: "shorteners", templates: [{ url: "https://v.gd/{id}" }] },
+  { id: "cuttly", name: "Cutt.ly", category: "shorteners", templates: [{ url: "https://cutt.ly/{id}" }] },
+  { id: "rbgy", name: "rb.gy", category: "shorteners", templates: [{ url: "https://rb.gy/{id}" }] },
+  { id: "tly", name: "T.ly", category: "shorteners", templates: [{ url: "https://t.ly/{id}" }] },
+  { id: "shorturl", name: "ShortURL", category: "shorteners", templates: [{ url: "https://shorturl.at/{id}" }], notFound: ["404 page not found"] },
+  { id: "owly", name: "Ow.ly", category: "shorteners", templates: [{ url: "https://ow.ly/{id}" }], notFound: ["lost-owly"] },
+  { id: "buffly", name: "Buff.ly", category: "shorteners", templates: [{ url: "https://buff.ly/{id}" }], notFound: ["buffer: social media management"] },
+  { id: "rebrandly", name: "Rebrandly", category: "shorteners", templates: [{ url: "https://rebrand.ly/{id}" }], notFound: ["broken-links"] },
+  { id: "bitdo", name: "Bit.do", category: "shorteners", templates: [{ url: "https://bit.do/{id}" }], dead: true },
+  { id: "gggg", name: "Gg.gg", category: "shorteners", templates: [{ url: "https://gg.gg/{id}" }] },
+  { id: "tco", name: "T.co", category: "shorteners", templates: [{ url: "https://t.co/{id}" }] },
+  { id: "adfly", name: "Adf.ly", category: "shorteners", templates: [{ url: "https://adf.ly/{id}" }], notFound: ["adfly-notice"] },
+];

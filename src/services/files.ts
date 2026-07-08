@@ -1,0 +1,31 @@
+import type { Service } from "./types";
+
+export const files: Service[] = [
+  { id: "mega", name: "MEGA", category: "files", templates: [
+    { label: "file", url: "https://mega.nz/file/{id}" },
+    { label: "legacy", url: "https://mega.nz/#!{id}" },
+  ], verify: false },
+  { id: "mediafire", name: "Mediafire", category: "files", templates: [{ url: "https://www.mediafire.com/file/{id}" }] },
+  { id: "dropbox", name: "Dropbox", category: "files", templates: [{ url: "https://www.dropbox.com/s/{id}" }], notFound: ["dropbox - error"] },
+  { id: "gdocs", name: "Google Docs", category: "files", templates: [{ url: "https://docs.google.com/document/d/{id}" }] },
+  { id: "gdrive", name: "Google Drive", category: "files", templates: [
+    { label: "file", url: "https://drive.google.com/file/d/{id}" },
+    { label: "folder", url: "https://drive.google.com/drive/folders/{id}" },
+  ] },
+  { id: "gofile", name: "GoFile", category: "files", templates: [{ url: "https://gofile.io/d/{id}" }], verify: false },
+  { id: "pixeldrain", name: "Pixeldrain", category: "files", templates: [{ url: "https://pixeldrain.com/u/{id}" }] },
+  { id: "filebin", name: "Filebin", category: "files", templates: [{ url: "https://filebin.net/{id}" }], notFound: ["this bin is empty"] },
+  { id: "fuckingfast", name: "FuckingFast", category: "files", templates: [{ url: "https://fuckingfast.co/{id}" }] },
+  { id: "krakenfiles", name: "Krakenfiles", category: "files", templates: [{ url: "https://krakenfiles.com/view/{id}" }] },
+  { id: "sendspace", name: "Sendspace", category: "files", templates: [{ url: "https://www.sendspace.com/file/{id}" }] },
+  { id: "bayfiles", name: "Bayfiles", category: "files", templates: [{ url: "https://bayfiles.com/{id}" }] },
+  { id: "fileio", name: "File.io", category: "files", templates: [{ url: "https://file.io/{id}" }] },
+  { id: "wetransfer", name: "WeTransfer", category: "files", templates: [{ url: "https://we.tl/{id}" }] },
+  { id: "litterbox", name: "Litterbox", category: "files", templates: [{ url: "https://litter.catbox.moe/{id}" }] },
+  { id: "zerox0", name: "0x0.st", category: "files", templates: [{ url: "https://0x0.st/{id}" }] },
+  { id: "onefichier", name: "1fichier", category: "files", templates: [{ url: "https://1fichier.com/?{id}" }] },
+  { id: "swisstransfer", name: "SwissTransfer", category: "files", templates: [{ url: "https://www.swisstransfer.com/d/{id}" }] },
+  { id: "uploadee", name: "Upload.ee", category: "files", templates: [{ url: "https://www.upload.ee/files/{id}" }], notFound: ["file does not exist"] },
+  { id: "ufile", name: "Ufile", category: "files", templates: [{ url: "https://ufile.io/{id}" }] },
+  { id: "pcloud", name: "pCloud", category: "files", templates: [{ url: "https://u.pcloud.link/publink/show?code={id}" }] },
+];
