@@ -168,17 +168,31 @@ export default function Page() {
   }, [allUrls, statuses]);
 
   const shown = useMemo<Candidate[]>(() => {
-    if (!onlyFound && !onlyNa) return candidates;
-    return candidates
-      .map((c) => ({
-        ...c,
-        rows: c.rows.filter((r) => {
-          const st = statuses[r.url]?.state;
-          return (onlyFound && st === "found") || (onlyNa && st === "uncheck");
-        }),
-      }))
-      .filter((c) => c.rows.length > 0);
-  }, [candidates, onlyFound, onlyNa, statuses]);
+    const base =
+      !onlyFound && !onlyNa
+        ? candidates
+        : candidates
+            .map((c) => ({
+              ...c,
+              rows: c.rows.filter((r) => {
+                const st = statuses[r.url]?.state;
+                return (onlyFound && st === "found") || (onlyNa && st === "uncheck");
+              }),
+            }))
+            .filter((c) => c.rows.length > 0);
+    if (!showStatus) return base;
+    const bucket = (st?: string) =>
+      st === "found" ? 0 : st === "uncheck" ? 1 : st === "other" || st === "error" ? 2 : st === "notfound" ? 3 : 4;
+    const rank = (rows: LinkRow[]) => {
+      let best = 4;
+      for (const r of rows) {
+        const b = bucket(statuses[r.url]?.state);
+        if (b < best) best = b;
+      }
+      return best;
+    };
+    return [...base].sort((a, b) => rank(a.rows) - rank(b.rows));
+  }, [candidates, onlyFound, onlyNa, statuses, showStatus]);
 
   const toggleCategory = (id: CategoryId) =>
     setDisabled((prev) => {
