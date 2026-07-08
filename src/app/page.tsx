@@ -32,7 +32,7 @@ export default function Page() {
   const [raw, setRaw] = useState("");
   const [autoTest, setAutoTest] = useState(true);
   const [extract, setExtract] = useState(true);
-  const [onlyFound, setOnlyFound] = useState(false);
+  const [onlyFound, setOnlyFound] = useState(true);
   const [disabled, setDisabled] = useState<Set<CategoryId>>(new Set());
   const [statuses, setStatuses] = useState<Record<string, ProbeResult>>({});
   const [history, setHistory] = useState<string[]>([]);
@@ -249,8 +249,9 @@ export default function Page() {
         </>
       ) : null}
 
-      <main className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-28">
-        <header className="animate-[fadeUp_0.7s_ease-out_both] pt-24 pb-12 text-center">
+      <div className="flex min-h-screen flex-col">
+      <main className="relative z-10 mx-auto w-full max-w-5xl flex-1 px-5 pb-16">
+        <header className="animate-[fadeUp_0.7s_ease-out_both] pt-16 pb-10 text-center">
           <h1 className="text-6xl font-extrabold -tracking-[0.04em] text-white sm:text-7xl">
             bl
             <span className="text-red" style={{ textShadow: "0 0 45px rgba(196,48,80,0.45)" }}>
@@ -303,7 +304,7 @@ export default function Page() {
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <Toggle on={autoTest} onClick={() => setAutoTest((v) => !v)} label="Auto-test" icon="bolt" />
             <Toggle on={extract} onClick={() => setExtract((v) => !v)} label="Extract code" icon="link" />
-            <Toggle on={onlyFound} onClick={() => setOnlyFound((v) => !v)} label="Only 200" icon="filter" />
+            <Toggle on={onlyFound} onClick={() => setOnlyFound((v) => !v)} label="Only found" icon="filter" />
             {!autoTest && code ? (
               <IconButton onClick={() => { setManual(true); runProbes(targets, seedBase); }} label="Test all" icon="refresh" />
             ) : null}
@@ -371,12 +372,13 @@ export default function Page() {
           </section>
         ) : null}
       </main>
-
-      <footer className="relative z-10 border-t border-line px-5 py-6 text-center">
-        <p className="font-mono text-[0.62rem] tracking-wide text-tx-3">
-          checks run through the app server and report the real http status
+      <footer className="relative z-10 border-t border-line px-5 py-3">
+        <p className="flex items-center justify-center gap-2 font-mono text-[0.62rem] tracking-wide text-tx-3">
+          <span>{SERVICES.length} sites</span>
+          <span>| n/a means you have to check manually because the site doesn't return clean identifiers</span>
         </p>
       </footer>
+      </div>
     </>
   );
 }
