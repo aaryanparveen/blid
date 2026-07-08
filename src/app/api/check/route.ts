@@ -1,4 +1,8 @@
 import type { NextRequest } from "next/server";
+import net from "node:net";
+import type { LookupFunction } from "node:net";
+import { Agent, fetch as uFetch } from "undici";
+import { Impit } from "impit";
 import { SERVICES } from "@/services";
 
 export const runtime = "nodejs";
@@ -14,6 +18,49 @@ function headersFor(host: string): Record<string, string> {
   }
   return HEADERS;
 }
+
+const dnsCache = new Map<string, string | null>();
+
+async function resolveHost(host: string): Promise<string | null> {
+  if (net.isIP(host)) return host;
+  const cached = dnsCache.get(host);
+  if (cached !== undefined) return cached;
+  let ip: string | null = null;
+  try {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 4000);
+    const r = await fetch(`https://1.1.1.1/dns-query?name=${encodeURIComponent(host)}&type=A`, {
+      headers: { accept: "application/dns-json" },
+      signal: ctrl.signal,
+    });
+    clearTimeout(t);
+    const j = (await r.json()) as { Answer?: { type: number; data: string }[] };
+    const answers = (j.Answer || []).filter((x) => x.type === 1).map((x) => x.data);
+    ip = answers[0] ?? null;
+  } catch {
+    ip = null;
+  }
+  dnsCache.set(host, ip);
+  return ip;
+}
+
+const lookup: LookupFunction = (hostname, options, cb) => {
+  resolveHost(hostname)
+    .then((ip) => {
+      if (!ip) return cb(new Error("dns"), "", 4);
+      if (options && options.all) cb(null, [{ address: ip, family: 4 }]);
+      else cb(null, ip, 4);
+    })
+    .catch((e) => cb(e as NodeJS.ErrnoException, "", 4));
+};
+
+const dispatcher = new Agent({
+  connect: { lookup, timeout: 8000 },
+  headersTimeout: 9000,
+  bodyTimeout: 9000,
+});
+
+const impit = new Impit({ browser: "chrome", followRedirects: true });
 
 function baseDomain(host: string): string {
   return host.split(".").slice(-2).join(".");
@@ -48,6 +95,32 @@ function markerVerdict(finalUrl: string, body: string, markers?: string[], found
   return "found";
 }
 
+async function viaImpit(
+  url: string,
+  wantBody: boolean,
+  markers?: string[],
+  foundMarkers?: string[],
+): Promise<{ state: string; status: number } | null> {
+  try {
+    const ir = await Promise.race([
+      impit.fetch(url),
+      new Promise<never>((_, rej) => setTimeout(() => rej(new Error("timeout")), 10000)),
+    ]);
+    const finalUrl = ir.url || url;
+    let state = classify(url, { status: ir.status, url: finalUrl, redirected: finalUrl !== url });
+    if (state === "found" && wantBody) {
+      let body = "";
+      try {
+        body = (await ir.text()).slice(0, 2_000_000);
+      } catch {}
+      state = markerVerdict(finalUrl, body, markers, foundMarkers);
+    }
+    return state === "uncheck" ? null : { state, status: ir.status };
+  } catch {
+    return null;
+  }
+}
+
 export async function GET(req: NextRequest) {
   const url = req.nextUrl.searchParams.get("url");
   const id = req.nextUrl.searchParams.get("id") || "";
@@ -67,15 +140,16 @@ export async function GET(req: NextRequest) {
     try {
       host = new URL(url).hostname;
     } catch {}
-    const res = await fetch(url, {
+    const res = await uFetch(url, {
       method: "GET",
       redirect: "follow",
       headers: headersFor(host),
+      dispatcher,
       signal: ctrl.signal,
     });
 
     let state = classify(url, res);
-    const status = res.status;
+    let status = res.status;
 
     if (wantBody && state === "found") {
       let body = "";
@@ -87,6 +161,14 @@ export async function GET(req: NextRequest) {
       try {
         await res.body?.cancel();
       } catch {}
+    }
+
+    if (state === "uncheck" && (status === 401 || status === 403 || status === 429 || status === 503)) {
+      const alt = await viaImpit(url, wantBody, markers, foundMarkers);
+      if (alt) {
+        state = alt.state;
+        status = alt.status;
+      }
     }
 
     return Response.json({ state, status });

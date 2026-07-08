@@ -22,7 +22,7 @@ export const social: Service[] = [
     ],
     verify: false,
   },
-  { id: "reddit", name: "Reddit", category: "social", templates: [{ url: "https://redd.it/{id}" }] },
+  { id: "reddit", name: "Reddit", category: "social", templates: [{ url: "https://redd.it/{id}" }], verify: false },
   { id: "facebook", name: "Facebook", category: "social", templates: [{ url: "https://www.facebook.com/{id}" }] },
   {
     id: "steam",

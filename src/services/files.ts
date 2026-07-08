@@ -20,7 +20,7 @@ export const files: Service[] = [
     { label: "net", url: "https://fuckingfast.net/{id}" },
   ] },
   { id: "krakenfiles", name: "Krakenfiles", category: "files", templates: [{ url: "https://krakenfiles.com/view/{id}" }] },
-  { id: "sendspace", name: "Sendspace", category: "files", templates: [{ url: "https://www.sendspace.com/file/{id}" }] },
+  { id: "sendspace", name: "Sendspace", category: "files", templates: [{ url: "https://www.sendspace.com/file/{id}" }], verify: false },
   { id: "bayfiles", name: "Bayfiles", category: "files", templates: [{ url: "https://bayfiles.com/{id}" }] },
   { id: "fileio", name: "File.io", category: "files", templates: [{ url: "https://file.io/{id}" }] },
   { id: "wetransfer", name: "WeTransfer", category: "files", templates: [{ url: "https://we.tl/{id}" }] },
