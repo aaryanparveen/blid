@@ -11,7 +11,8 @@ import LinkCard, { type LinkRow } from "@/components/LinkCard";
 import Icon from "@/components/Icon";
 
 interface Candidate {
-  service: Service;
+  key: string;
+  name: string;
   category: Category;
   rows: LinkRow[];
 }
@@ -55,40 +56,54 @@ export default function Page() {
   const built = useMemo(() => {
     const empty = {
       list: [] as Candidate[],
+      excluded: [] as Candidate[],
       skipped: 0,
       targets: [] as { probe: string; urls: string[]; id: string }[],
       uncheckUrls: [] as string[],
       deadUrls: [] as string[],
     };
     if (!code) return empty;
-    const list: Candidate[] = [];
+    const active: { s: Service; rows: LinkRow[] }[] = [];
+    const excludedItems: { s: Service; rows: LinkRow[] }[] = [];
     let skipped = 0;
     for (const s of SERVICES) {
       if (disabled.has(s.category)) continue;
+      const rows = s.templates.map((t) => ({ label: t.label, url: fill(t.url, code) }));
       if (!lenOk(s, code)) {
         skipped += s.templates.length;
+        excludedItems.push({ s, rows });
         continue;
       }
-      list.push({
-        service: s,
-        category: CATEGORY_MAP[s.category],
-        rows: s.templates.map((t) => ({ label: t.label, url: fill(t.url, code) })),
-      });
+      active.push({ s, rows });
     }
-    list.sort((a, b) => popRank(a.service.id) - popRank(b.service.id));
     const targets: { probe: string; urls: string[]; id: string }[] = [];
     const uncheckUrls: string[] = [];
     const deadUrls: string[] = [];
-    for (const c of list) {
-      const rowUrls = c.rows.map((r) => r.url);
-      if (c.service.dead) deadUrls.push(...rowUrls);
-      else if (c.service.verify === false) uncheckUrls.push(...rowUrls);
-      else if (c.service.check) targets.push({ probe: fill(c.service.check, code), urls: rowUrls, id: c.service.id });
-      else for (const u of rowUrls) targets.push({ probe: u, urls: [u], id: c.service.id });
+    for (const { s, rows } of active) {
+      const rowUrls = rows.map((r) => r.url);
+      if (s.dead) deadUrls.push(...rowUrls);
+      else if (s.verify === false) uncheckUrls.push(...rowUrls);
+      else if (s.check) targets.push({ probe: fill(s.check, code), urls: rowUrls, id: s.id });
+      else for (const u of rowUrls) targets.push({ probe: u, urls: [u], id: s.id });
     }
-    return { list, skipped, targets, uncheckUrls, deadUrls };
+    const toGroups = (items: { s: Service; rows: LinkRow[] }[]): Candidate[] => {
+      const groups = new Map<string, Candidate & { rank: number }>();
+      for (const { s, rows } of items) {
+        const key = s.group ?? s.id;
+        let g = groups.get(key);
+        if (!g) {
+          g = { key, name: s.group ?? s.name, category: CATEGORY_MAP[s.category], rows: [], rank: popRank(s.id) };
+          groups.set(key, g);
+        }
+        g.rows.push(...rows);
+        if (popRank(s.id) < g.rank) g.rank = popRank(s.id);
+      }
+      return [...groups.values()].sort((a, b) => a.rank - b.rank);
+    };
+    return { list: toGroups(active), excluded: toGroups(excludedItems), skipped, targets, uncheckUrls, deadUrls };
   }, [code, disabled]);
   const candidates = built.list;
+  const excluded = built.excluded;
   const skipped = built.skipped;
   const targets = built.targets;
   const uncheckUrls = built.uncheckUrls;
@@ -377,9 +392,9 @@ export default function Page() {
               <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
                 {shown.map((c, i) => (
                   <LinkCard
-                    key={c.service.id}
+                    key={c.key}
                     index={i}
-                    service={c.service}
+                    name={c.name}
                     category={c.category}
                     rows={c.rows}
                     statuses={statuses}
@@ -392,6 +407,27 @@ export default function Page() {
                 {onlyFound ? (counts.pending ? "checking…" : "no 200s") : "all categories disabled"}
               </p>
             )}
+
+            {!onlyFound && !onlyNa && excluded.length ? (
+              <div className="mt-12">
+                <p className="mb-4 border-t border-line pt-4 font-mono text-[0.62rem] lowercase tracking-wider text-tx-3">
+                  excluded — your code&apos;s length doesn&apos;t match these sites&apos; id format
+                </p>
+                <div className="grid grid-cols-1 gap-2.5 opacity-40 sm:grid-cols-2 lg:grid-cols-3">
+                  {excluded.map((c, i) => (
+                    <LinkCard
+                      key={c.key}
+                      index={i}
+                      name={c.name}
+                      category={c.category}
+                      rows={c.rows}
+                      statuses={statuses}
+                      showStatus={false}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </section>
         ) : null}
       </main>

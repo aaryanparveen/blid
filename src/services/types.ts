@@ -26,6 +26,7 @@ export interface Service {
   id: string;
   name: string;
   category: CategoryId;
+  group?: string;
   templates: LinkTemplate[];
   len?: number | [number, number];
   numeric?: boolean;

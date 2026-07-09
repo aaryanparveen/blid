@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Category, Service } from "@/services/types";
+import type { Category } from "@/services/types";
 import type { ProbeResult } from "@/lib/probe";
 import StatusDot from "./StatusDot";
 import Icon from "./Icon";
@@ -21,14 +21,14 @@ const STATE_COLOR: Record<string, string> = {
 };
 
 export default function LinkCard({
-  service,
+  name,
   category,
   rows,
   statuses,
   showStatus,
   index,
 }: {
-  service: Service;
+  name: string;
   category: Category;
   rows: LinkRow[];
   statuses: Record<string, ProbeResult>;
@@ -59,7 +59,7 @@ export default function LinkCard({
         style={{ background: category.color }}
       />
       <div className="mb-3 flex items-center justify-between gap-2">
-        <h3 className="text-[0.92rem] font-semibold lowercase tracking-tight text-white">{service.name}</h3>
+        <h3 className="text-[0.92rem] font-semibold lowercase tracking-tight text-white">{name}</h3>
         <span
           className="font-mono text-[0.55rem] font-medium lowercase tracking-[0.14em]"
           style={{ color: category.color }}

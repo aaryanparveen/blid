@@ -30,6 +30,6 @@ export const images: Service[] = [
   { id: "unsplash", name: "Unsplash", category: "images", templates: [{ url: "https://unsplash.com/@{id}" }], verify: false },
   { id: "pixabay", name: "Pixabay", category: "images", templates: [{ url: "https://pixabay.com/users/{id}" }] },
   { id: "pexels", name: "Pexels", category: "images", templates: [{ url: "https://www.pexels.com/@{id}" }] },
-  { id: "sketchfab", name: "Sketchfab", category: "images", templates: [{ url: "https://sketchfab.com/3d-models/{id}" }] },
+  { id: "sketchfab", name: "Sketchfab", category: "images", templates: [{ url: "https://sketchfab.com/3d-models/{id}" }], check: "https://sketchfab.com/oembed?url=https://sketchfab.com/3d-models/{id}" },
   { id: "opensea", name: "OpenSea", category: "images", templates: [{ url: "https://opensea.io/{id}" }] },
 ];
