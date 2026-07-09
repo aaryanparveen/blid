@@ -10,6 +10,7 @@ import { music } from "./music";
 import { code } from "./code";
 import { market } from "./market";
 import { other } from "./other";
+import { people } from "./people";
 
 export const SERVICES: Service[] = [
   ...shorteners,
@@ -23,6 +24,7 @@ export const SERVICES: Service[] = [
   ...code,
   ...market,
   ...other,
+  ...people,
 ];
 
 export const TOTAL_LINKS = SERVICES.reduce((n, s) => n + s.templates.length, 0);
