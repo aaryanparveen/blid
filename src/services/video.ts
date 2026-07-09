@@ -15,7 +15,7 @@ export const video: Service[] = [
   },
   { id: "youtube_playlist", name: "YouTube", group: "YouTube", category: "video", templates: [{ label: "playlist", url: "https://www.youtube.com/playlist?list={id}" }] },
   { id: "youtube_channel", name: "YouTube", group: "YouTube", category: "video", templates: [{ label: "channel", url: "https://www.youtube.com/channel/{id}" }], len: 24 },
-  { id: "vimeo", name: "Vimeo", category: "video", templates: [{ url: "https://vimeo.com/{id}" }] },
+  { id: "vimeo", name: "Vimeo", category: "video", templates: [{ url: "https://vimeo.com/{id}" }], found: ['property="og:title"'] },
   { id: "dailymotion", name: "Dailymotion", category: "video", templates: [{ url: "https://www.dailymotion.com/video/{id}" }], check: "https://www.dailymotion.com/services/oembed?url=https://www.dailymotion.com/video/{id}", notFound: ["invalid video url"] },
   { id: "streamable", name: "Streamable", category: "video", templates: [{ url: "https://streamable.com/{id}" }] },
   { id: "twitch", name: "Twitch", group: "Twitch", category: "video", templates: [{ label: "channel", url: "https://www.twitch.tv/{id}" }], notFound: ["leading video platform and community for gamers"] },

@@ -73,5 +73,5 @@ export const social: Service[] = [
   { id: "roblox", name: "Roblox", category: "social", templates: [
     { label: "game", url: "https://www.roblox.com/games/{id}" },
     { label: "user", url: "https://www.roblox.com/users/{id}/profile" },
-  ], numeric: true },
+  ], numeric: true, notFound: ["title-unavailable", "title unavailable"] },
 ];
