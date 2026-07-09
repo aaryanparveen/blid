@@ -13,6 +13,7 @@ export const video: Service[] = [
     notFound: ['playabilitystatus":{"status":"error"'],
   },
   { id: "youtube_playlist", name: "YouTube Playlist", category: "video", templates: [{ url: "https://www.youtube.com/playlist?list={id}" }] },
+  { id: "youtube_channel", name: "YouTube Channel", category: "video", templates: [{ url: "https://www.youtube.com/channel/{id}" }], len: 24 },
   { id: "vimeo", name: "Vimeo", category: "video", templates: [{ url: "https://vimeo.com/{id}" }] },
   { id: "dailymotion", name: "Dailymotion", category: "video", templates: [{ url: "https://www.dailymotion.com/video/{id}" }], check: "https://www.dailymotion.com/services/oembed?url=https://www.dailymotion.com/video/{id}", notFound: ["invalid video url"] },
   { id: "streamable", name: "Streamable", category: "video", templates: [{ url: "https://streamable.com/{id}" }] },

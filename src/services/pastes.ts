@@ -14,4 +14,5 @@ export const pastes: Service[] = [
   { id: "privatebin", name: "PrivateBin", category: "pastes", templates: [{ url: "https://privatebin.net/?{id}" }], verify: false },
   { id: "writeas", name: "Write.as", category: "pastes", templates: [{ url: "https://write.as/{id}" }] },
   { id: "cryptobin", name: "Cryptobin", category: "pastes", templates: [{ url: "https://cryptobin.co/{id}" }] },
+  { id: "ctxt", name: "ctxt.io", category: "pastes", templates: [{ url: "https://ctxt.io/2/{id}" }], notFound: ["paste expired or not found"] },
 ];

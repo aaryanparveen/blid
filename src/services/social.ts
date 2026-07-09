@@ -3,6 +3,7 @@ import type { Service } from "./types";
 export const social: Service[] = [
   { id: "discord", name: "Discord", category: "social", templates: [{ url: "https://discord.gg/{id}" }], notFound: ["group chat that"] },
   { id: "telegram", name: "Telegram", category: "social", templates: [{ url: "https://t.me/{id}" }], verify: false },
+  { id: "whatsapp", name: "WhatsApp Group", category: "social", templates: [{ url: "https://chat.whatsapp.com/{id}" }], notFound: ['og:title" content=""'] },
   {
     id: "twitter",
     name: "Twitter",

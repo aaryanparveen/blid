@@ -2,6 +2,7 @@ import type { Service } from "./types";
 
 export const other: Service[] = [
   { id: "onion", name: ".onion", category: "other", templates: [{ url: "http://{id}.onion" }] },
+  { id: "notion", name: "Notion", category: "other", templates: [{ url: "https://notion.so/{id}" }] },
   { id: "isbn", name: "ISBN", category: "other", templates: [{ url: "https://isbnsearch.org/isbn/{id}" }] },
   { id: "doi", name: "DOI", category: "other", templates: [{ url: "https://doi.org/{id}" }] },
   { id: "keybase", name: "Keybase", category: "other", templates: [{ url: "https://keybase.io/{id}" }] },

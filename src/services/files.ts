@@ -8,6 +8,10 @@ export const files: Service[] = [
   { id: "mediafire", name: "Mediafire", category: "files", templates: [{ url: "https://www.mediafire.com/file/{id}" }] },
   { id: "dropbox", name: "Dropbox", category: "files", templates: [{ url: "https://www.dropbox.com/s/{id}" }], notFound: ["dropbox - error"] },
   { id: "gdocs", name: "Google Docs", category: "files", templates: [{ url: "https://docs.google.com/document/d/{id}" }] },
+  { id: "gforms", name: "Google Forms", category: "files", templates: [{ url: "https://docs.google.com/forms/d/{id}" }] },
+  { id: "gsheets", name: "Google Sheets", category: "files", templates: [{ url: "https://docs.google.com/spreadsheets/d/{id}" }] },
+  { id: "gslides", name: "Google Slides", category: "files", templates: [{ url: "https://docs.google.com/presentation/d/{id}" }] },
+  { id: "formsgle", name: "Forms.gle", category: "files", templates: [{ url: "https://forms.gle/{id}" }] },
   { id: "gdrive", name: "Google Drive", category: "files", templates: [
     { label: "file", url: "https://drive.google.com/file/d/{id}" },
     { label: "folder", url: "https://drive.google.com/drive/folders/{id}" },

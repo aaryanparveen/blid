@@ -7,6 +7,7 @@ export const images: Service[] = [
     { label: "gallery", url: "https://imgur.com/gallery/{id}" },
   ], found: ["og:image"] },
   { id: "imgflip", name: "Imgflip", category: "images", templates: [{ url: "https://imgflip.com/i/{id}" }] },
+  { id: "imgpile", name: "ImgPile", category: "images", templates: [{ url: "https://imgpile.com/i/{id}" }], verify: false },
   { id: "imgbb", name: "ImgBB", category: "images", templates: [{ url: "https://ibb.co/{id}" }] },
   { id: "gyazo", name: "Gyazo", category: "images", templates: [{ url: "https://gyazo.com/{id}" }], len: 32 },
   { id: "lightshot", name: "Lightshot", category: "images", templates: [{ url: "https://prnt.sc/{id}" }], len: 6 },
