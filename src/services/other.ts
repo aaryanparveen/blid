@@ -2,7 +2,9 @@ import type { Service } from "./types";
 
 export const other: Service[] = [
   { id: "onion", name: ".onion", category: "other", templates: [{ url: "http://{id}.onion" }] },
-  { id: "notion", name: "Notion", category: "other", templates: [{ url: "https://notion.so/{id}" }] },
+  { id: "notion", name: "Notion", category: "other", templates: [{ url: "https://notion.so/{id}" }], verify: false },
+  { id: "trello", name: "Trello", group: "Trello", category: "other", templates: [{ label: "board", url: "https://trello.com/b/{id}" }], check: "https://trello.com/b/{id}.json?fields=name&cards=none&lists=none&actions=none&members=none&checklists=none&labels=none" },
+  { id: "trello_card", name: "Trello", group: "Trello", category: "other", templates: [{ label: "card", url: "https://trello.com/c/{id}" }], check: "https://trello.com/c/{id}.json?fields=name&actions=none&checklists=none&members=none&attachments=false" },
   { id: "isbn", name: "ISBN", category: "other", templates: [{ url: "https://isbnsearch.org/isbn/{id}" }] },
   { id: "doi", name: "DOI", category: "other", templates: [{ url: "https://doi.org/{id}" }] },
   { id: "keybase", name: "Keybase", category: "other", templates: [{ url: "https://keybase.io/{id}" }] },

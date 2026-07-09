@@ -139,6 +139,12 @@ export async function GET(req: NextRequest) {
   const markers = svc?.notFound;
   const foundMarkers = svc?.found;
   const wantBody = !!((markers && markers.length) || (foundMarkers && foundMarkers.length));
+
+  if (svc?.browser && impit) {
+    const alt = await viaImpit(url, wantBody, markers, foundMarkers);
+    if (alt) return Response.json(alt);
+  }
+
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 17000);
 

@@ -13,5 +13,9 @@ export const market: Service[] = [
   { id: "nexusmods", name: "Nexus Mods", category: "market", templates: [{ url: "https://www.nexusmods.com/games/{id}" }] },
   { id: "curseforge", name: "CurseForge", category: "market", templates: [{ url: "https://www.curseforge.com/members/{id}" }] },
   { id: "gamebanana", name: "GameBanana", category: "market", templates: [{ url: "https://gamebanana.com/members/{id}" }], verify: false },
-  { id: "blinkit", name: "Blinkit", category: "market", templates: [{ url: "https://blinkit.com/prn/x/prid/{id}" }], numeric: true, verify: false },
+  { id: "blinkit", name: "Blinkit", category: "market", templates: [{ url: "https://blinkit.com/prn/x/prid/{id}" }], numeric: true, notFound: ["products delivered to your doorstep"] },
+  { id: "amazon", name: "Amazon", group: "Amazon", category: "market", templates: [
+    { label: "com", url: "https://www.amazon.com/x/dp/{id}" },
+    { label: "in", url: "https://www.amazon.in/x/dp/{id}" },
+  ], len: 10, browser: true, found: ["producttitle"] },
 ];

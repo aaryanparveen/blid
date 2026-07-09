@@ -8,6 +8,7 @@ export const social: Service[] = [
     id: "twitter",
     name: "Twitter",
     category: "social",
+    browser: true,
     templates: [
       { label: "twitter", url: "https://twitter.com/{id}" },
       { label: "x", url: "https://x.com/{id}" },

@@ -34,5 +34,6 @@ export interface Service {
   found?: string[];
   verify?: boolean;
   dead?: boolean;
+  browser?: boolean;
   check?: string;
 }
