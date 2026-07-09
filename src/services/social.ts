@@ -39,7 +39,7 @@ export const social: Service[] = [
   { id: "tiktok_user", name: "TikTok", category: "social", templates: [{ url: "https://www.tiktok.com/@{id}" }], verify: false },
   { id: "snapchat", name: "Snapchat", category: "social", templates: [{ url: "https://www.snapchat.com/add/{id}" }] },
   { id: "tumblr", name: "Tumblr", category: "social", templates: [{ url: "https://{id}.tumblr.com" }] },
-  { id: "pinterest", name: "Pinterest", category: "social", templates: [{ url: "https://www.pinterest.com/{id}" }], notFound: ["user not found"] },
+  { id: "pinterest", name: "Pinterest", category: "social", templates: [{ url: "https://www.pinterest.com/{id}" }], notFound: ["user not found"], alpha: true },
   { id: "linkedin", name: "LinkedIn", category: "social", templates: [{ url: "https://www.linkedin.com/in/{id}" }] },
   { id: "threads", name: "Threads", category: "social", templates: [{ url: "https://www.threads.net/@{id}" }], verify: false },
   { id: "bluesky", name: "Bluesky", category: "social", templates: [{ url: "https://bsky.app/profile/{id}" }], found: ["on bluesky"] },

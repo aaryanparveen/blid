@@ -13,7 +13,7 @@ export const audio: Service[] = [
     verify: false,
   },
   { id: "picosong", name: "Picosong", category: "audio", templates: [{ url: "https://picosong.com/{id}" }], notFound: ["upload a mp3 or song"] },
-  { id: "soundcloud", name: "SoundCloud", category: "audio", templates: [{ url: "https://soundcloud.com/{id}" }], verify: false },
+  { id: "soundcloud", name: "SoundCloud", category: "audio", templates: [{ url: "https://soundcloud.com/{id}" }] },
   { id: "audiomack", name: "Audiomack", category: "audio", templates: [{ url: "https://audiomack.com/{id}" }], notFound: ["audiomack - music platform empowering"] },
   { id: "bandcamp", name: "Bandcamp", category: "audio", templates: [{ url: "https://{id}.bandcamp.com" }], notFound: ["signup?new_domain"] },
   { id: "mixcloud", name: "Mixcloud", category: "audio", templates: [{ url: "https://www.mixcloud.com/{id}" }], notFound: ["mixcloud - this is audio culture"] },

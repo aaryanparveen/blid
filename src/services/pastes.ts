@@ -7,7 +7,7 @@ export const pastes: Service[] = [
   { id: "rentry", name: "Rentry", category: "pastes", templates: [{ url: "https://rentry.co/{id}" }] },
   { id: "dpaste", name: "dpaste", category: "pastes", templates: [{ url: "https://dpaste.org/{id}" }], dead: true },
   { id: "pasteee", name: "Pastee", category: "pastes", templates: [{ url: "https://pastee.dev/p/{id}" }], notFound: ["<textarea"] },
-  { id: "controlc", name: "ControlC", category: "pastes", templates: [{ url: "https://controlc.com/{id}" }] },
+  { id: "controlc", name: "ControlC", category: "pastes", templates: [{ url: "https://controlc.com/{id}" }], notFound: ["paste not found"] },
   { id: "justpaste", name: "JustPaste.it", category: "pastes", templates: [{ url: "https://justpaste.it/{id}" }] },
   { id: "pastelink", name: "Pastelink", category: "pastes", templates: [{ url: "https://pastelink.net/{id}" }] },
   { id: "zerobin", name: "0bin", category: "pastes", templates: [{ url: "https://0bin.net/paste/{id}" }], notFound: ["paste-not-found", "paste not found"] },

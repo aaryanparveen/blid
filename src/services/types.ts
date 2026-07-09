@@ -30,6 +30,7 @@ export interface Service {
   templates: LinkTemplate[];
   len?: number | [number, number];
   numeric?: boolean;
+  alpha?: boolean;
   notFound?: string[];
   found?: string[];
   verify?: boolean;

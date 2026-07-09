@@ -24,6 +24,7 @@ const popRank = (id: string) => POP_RANK.get(id) ?? Infinity;
 
 function lenOk(s: Service, code: string) {
   if (s.numeric && /[a-z]/i.test(code)) return false;
+  if (s.alpha && !/[a-z]/i.test(code)) return false;
   const len = s.len;
   if (len == null) return true;
   const L = code.length;
