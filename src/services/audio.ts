@@ -21,6 +21,6 @@ export const audio: Service[] = [
   { id: "genius", name: "Genius", category: "audio", templates: [{ url: "https://genius.com/{id}" }] },
   { id: "audius", name: "Audius", category: "audio", templates: [{ url: "https://audius.co/{id}" }], check: "https://api.audius.co/v1/users/handle/{id}?app_name=blid" },
   { id: "reverbnation", name: "ReverbNation", category: "audio", templates: [{ url: "https://www.reverbnation.com/{id}" }] },
-  { id: "newgrounds", name: "Newgrounds", category: "audio", templates: [{ url: "https://{id}.newgrounds.com" }] },
+  { id: "newgrounds", name: "Newgrounds", category: "audio", templates: [{ url: "https://{id}.newgrounds.com" }], verify: false },
   { id: "jamendo", name: "Jamendo", category: "audio", templates: [{ url: "https://www.jamendo.com/artist/{id}" }], numeric: true },
 ];
