@@ -59,4 +59,18 @@ export const social: Service[] = [
   { id: "neocities", name: "Neocities", category: "social", templates: [{ url: "https://{id}.neocities.org" }] },
   { id: "mirror", name: "Mirror", category: "social", templates: [{ url: "https://mirror.xyz/{id}" }], verify: false },
   { id: "warpcast", name: "Warpcast", category: "social", templates: [{ url: "https://warpcast.com/{id}" }], check: "https://api.warpcast.com/v2/user-by-username?username={id}" },
+  { id: "myanimelist", name: "MyAnimeList", category: "social", templates: [{ url: "https://myanimelist.net/profile/{id}" }] },
+  { id: "malanime", name: "MyAnimeList Anime", category: "social", templates: [{ url: "https://myanimelist.net/anime/{id}" }], numeric: true },
+  { id: "malmanga", name: "MyAnimeList Manga", category: "social", templates: [{ url: "https://myanimelist.net/manga/{id}" }], numeric: true },
+  { id: "anilist", name: "AniList", category: "social", templates: [{ url: "https://anilist.co/user/{id}" }], verify: false },
+  { id: "allmanga", name: "AllManga", category: "social", templates: [{ url: "https://allmanga.to/bangumi/{id}" }], verify: false },
+  { id: "fandom", name: "Fandom", category: "social", templates: [{ url: "https://{id}.fandom.com" }] },
+  { id: "pinit", name: "pin.it", category: "social", templates: [{ url: "https://pin.it/{id}" }], verify: false },
+  { id: "osu", name: "osu!", category: "social", templates: [{ url: "https://osu.ppy.sh/users/{id}" }] },
+  { id: "niconicouser", name: "Niconico User", category: "social", templates: [{ url: "https://www.nicovideo.jp/user/{id}" }], numeric: true },
+  { id: "guilded", name: "Guilded", category: "social", templates: [{ url: "https://www.guilded.gg/{id}" }], verify: false },
+  { id: "roblox", name: "Roblox", category: "social", templates: [
+    { label: "game", url: "https://www.roblox.com/games/{id}" },
+    { label: "user", url: "https://www.roblox.com/users/{id}/profile" },
+  ], numeric: true },
 ];

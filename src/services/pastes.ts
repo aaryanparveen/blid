@@ -15,4 +15,10 @@ export const pastes: Service[] = [
   { id: "writeas", name: "Write.as", category: "pastes", templates: [{ url: "https://write.as/{id}" }] },
   { id: "cryptobin", name: "Cryptobin", category: "pastes", templates: [{ url: "https://cryptobin.co/{id}" }] },
   { id: "ctxt", name: "ctxt.io", category: "pastes", templates: [{ url: "https://ctxt.io/2/{id}" }], notFound: ["paste expired or not found"] },
+  { id: "ncrypt", name: "NCrypt", category: "pastes", templates: [{ url: "https://ncry.pt/p/{id}" }] },
+  { id: "eightgwifi", name: "8gwifi Paste", category: "pastes", templates: [{ url: "https://8gwifi.org/pastebin.jsp?id={id}" }], check: "https://8gwifi.org/api/pastebin/{id}/raw" },
+  { id: "zerobinnet", name: "ZeroBin", category: "pastes", templates: [{ url: "https://zerobin.net/?{id}" }], verify: false },
+  { id: "glot", name: "Glot.io", category: "pastes", templates: [{ url: "https://glot.io/snippets/{id}" }] },
+  { id: "codeshare", name: "Codeshare", category: "pastes", templates: [{ url: "https://codeshare.io/{id}" }], verify: false },
+  { id: "pasteto", name: "Paste.to", category: "pastes", templates: [{ url: "https://paste.to/{id}" }], verify: false },
 ];

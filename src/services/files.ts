@@ -35,4 +35,9 @@ export const files: Service[] = [
   { id: "uploadee", name: "Upload.ee", category: "files", templates: [{ url: "https://www.upload.ee/files/{id}" }], notFound: ["file does not exist"] },
   { id: "ufile", name: "Ufile", category: "files", templates: [{ url: "https://ufile.io/{id}" }] },
   { id: "pcloud", name: "pCloud", category: "files", templates: [{ url: "https://u.pcloud.link/publink/show?code={id}" }] },
+  { id: "protondrive", name: "Proton Drive", category: "files", templates: [{ url: "https://drive.proton.me/urls/{id}" }], verify: false },
+  { id: "anonfile", name: "AnonFile", category: "files", templates: [{ url: "https://anonfile.co/{id}" }], verify: false },
+  { id: "googlephotos", name: "Google Photos", category: "files", templates: [{ url: "https://photos.app.goo.gl/{id}" }] },
+  { id: "tusd", name: "tus demo", category: "files", templates: [{ url: "https://tusd.tusdemo.net/files/{id}" }] },
+  { id: "icloud", name: "iCloud", category: "files", templates: [{ url: "https://www.icloud.com/iclouddrive/{id}" }], verify: false },
 ];

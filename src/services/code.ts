@@ -32,4 +32,6 @@ export const code: Service[] = [
   { id: "pypi", name: "PyPI", category: "code", templates: [{ url: "https://pypi.org/project/{id}" }], check: "https://pypi.org/pypi/{id}/json" },
   { id: "crates", name: "crates.io", category: "code", templates: [{ url: "https://crates.io/crates/{id}" }], check: "https://crates.io/api/v1/crates/{id}" },
   { id: "kaggle", name: "Kaggle", category: "code", templates: [{ url: "https://www.kaggle.com/{id}" }], verify: false },
+  { id: "scratch", name: "Scratch", category: "code", templates: [{ url: "https://scratch.mit.edu/projects/{id}" }], numeric: true, check: "https://api.scratch.mit.edu/projects/{id}" },
+  { id: "turbowarp", name: "TurboWarp", category: "code", templates: [{ url: "https://turbowarp.org/{id}" }], numeric: true, check: "https://api.scratch.mit.edu/projects/{id}" },
 ];

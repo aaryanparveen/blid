@@ -23,4 +23,13 @@ export const video: Service[] = [
   { id: "bitchute", name: "BitChute", category: "video", templates: [{ url: "https://www.bitchute.com/video/{id}" }], notFound: ["prioritizes creators and champions users"] },
   { id: "loom", name: "Loom", category: "video", templates: [{ url: "https://www.loom.com/share/{id}" }] },
   { id: "bilibili", name: "Bilibili", category: "video", templates: [{ url: "https://space.bilibili.com/{id}" }] },
+  { id: "netflix", name: "Netflix", category: "video", templates: [{ url: "https://www.netflix.com/title/{id}" }], numeric: true },
+  { id: "primevideo", name: "Prime Video", category: "video", templates: [{ url: "https://www.primevideo.com/detail/{id}" }] },
+  { id: "nicovideo", name: "Niconico", category: "video", templates: [{ url: "https://www.nicovideo.jp/watch/{id}" }] },
+  { id: "niconicolive", name: "Niconico Live", category: "video", templates: [{ url: "https://live.nicovideo.jp/watch/{id}" }] },
+  { id: "niconicochannel", name: "Niconico Channel", category: "video", templates: [{ url: "https://ch.nicovideo.jp/{id}" }] },
+  { id: "kick", name: "Kick", category: "video", templates: [{ url: "https://kick.com/{id}" }], verify: false },
+  { id: "bilibilivideo", name: "Bilibili Video", category: "video", templates: [{ url: "https://www.bilibili.com/video/{id}" }] },
+  { id: "odysee", name: "Odysee", category: "video", templates: [{ url: "https://odysee.com/@{id}" }], notFound: ["<title>odysee</title>"] },
+  { id: "crunchyroll", name: "Crunchyroll", category: "video", templates: [{ url: "https://www.crunchyroll.com/series/{id}" }], notFound: ["watch popular anime"] },
 ];
