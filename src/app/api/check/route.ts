@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import net from "node:net";
+import dns from "node:dns";
 import type { LookupFunction } from "node:net";
 import { Agent, fetch as uFetch } from "undici";
 import { Impit } from "impit";
@@ -20,16 +21,16 @@ function headersFor(host: string): Record<string, string> {
   return HEADERS;
 }
 
-const dnsCache = new Map<string, string | null>();
+const dnsCache = new Map<string, string>();
+const sysLookup = dns.lookup as unknown as LookupFunction;
 
 async function resolveHost(host: string): Promise<string | null> {
   if (net.isIP(host)) return host;
   const cached = dnsCache.get(host);
-  if (cached !== undefined) return cached;
-  let ip: string | null = null;
+  if (cached) return cached;
   try {
     const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 4000);
+    const t = setTimeout(() => ctrl.abort(), 10000);
     const r = await fetch(`https://1.1.1.1/dns-query?name=${encodeURIComponent(host)}&type=A`, {
       headers: { accept: "application/dns-json" },
       signal: ctrl.signal,
@@ -37,28 +38,32 @@ async function resolveHost(host: string): Promise<string | null> {
     clearTimeout(t);
     const j = (await r.json()) as { Answer?: { type: number; data: string }[] };
     const answers = (j.Answer || []).filter((x) => x.type === 1).map((x) => x.data);
-    ip = answers[0] ?? null;
-  } catch {
-    ip = null;
-  }
-  dnsCache.set(host, ip);
-  return ip;
+    const ip = answers[0];
+    if (ip) {
+      dnsCache.set(host, ip);
+      return ip;
+    }
+  } catch {}
+  return null;
 }
 
 const lookup: LookupFunction = (hostname, options, cb) => {
   resolveHost(hostname)
     .then((ip) => {
-      if (!ip) return cb(new Error("dns"), "", 4);
-      if (options && options.all) cb(null, [{ address: ip, family: 4 }]);
-      else cb(null, ip, 4);
+      if (ip) {
+        if (options && options.all) cb(null, [{ address: ip, family: 4 }]);
+        else cb(null, ip, 4);
+      } else {
+        sysLookup(hostname, options, cb);
+      }
     })
-    .catch((e) => cb(e as NodeJS.ErrnoException, "", 4));
+    .catch(() => sysLookup(hostname, options, cb));
 };
 
 const dispatcher = new Agent({
-  connect: { lookup, timeout: 8000 },
-  headersTimeout: 9000,
-  bodyTimeout: 9000,
+  connect: { lookup, timeout: 12000 },
+  headersTimeout: 12000,
+  bodyTimeout: 12000,
 });
 
 const impit = new Impit({ browser: "chrome", followRedirects: true });
@@ -135,7 +140,7 @@ export async function GET(req: NextRequest) {
   const foundMarkers = svc?.found;
   const wantBody = !!((markers && markers.length) || (foundMarkers && foundMarkers.length));
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 11000);
+  const timer = setTimeout(() => ctrl.abort(), 17000);
 
   try {
     let host = "";
