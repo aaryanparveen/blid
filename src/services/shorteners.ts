@@ -45,5 +45,5 @@ export const shorteners: Service[] = [
   { id: "dbtt", name: "db.tt", category: "shorteners", templates: [{ url: "https://db.tt/{id}" }], dead: true },
   { id: "wame", name: "wa.me", category: "shorteners", templates: [{ url: "https://wa.me/{id}" }], verify: false },
   { id: "zmurl", name: "zmurl.us", category: "shorteners", templates: [{ url: "https://zmurl.us/{id}" }] },
-  { id: "canva", name: "canva.me", category: "shorteners", templates: [{ url: "https://canva.me/{id}" }], verify: false },
+  { id: "canva", name: "canva.me", category: "shorteners", templates: [{ url: "https://canva.me/{id}" }] , found: ["_branch_match_id"] },
 ];

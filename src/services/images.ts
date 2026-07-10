@@ -26,7 +26,7 @@ export const images: Service[] = [
   { id: "pixiv", name: "Pixiv", category: "images", templates: [{ url: "https://www.pixiv.net/en/artworks/{id}" }] },
   { id: "behance", name: "Behance", category: "images", templates: [{ url: "https://www.behance.net/{id}" }] },
   { id: "dribbble", name: "Dribbble", category: "images", templates: [{ url: "https://dribbble.com/{id}" }] },
-  { id: "artstation", name: "ArtStation", category: "images", templates: [{ url: "https://www.artstation.com/{id}" }], verify: false },
+  { id: "artstation", name: "ArtStation", category: "images", templates: [{ url: "https://www.artstation.com/{id}" }] , check: "https://www.artstation.com/api/v2/user_profiles/{id}/quick.json", notFound: ["user not found"] },
   { id: "unsplash", name: "Unsplash", category: "images", templates: [{ url: "https://unsplash.com/@{id}" }], verify: false },
   { id: "pixabay", name: "Pixabay", category: "images", templates: [{ url: "https://pixabay.com/users/{id}" }] },
   { id: "pexels", name: "Pexels", category: "images", templates: [{ url: "https://www.pexels.com/@{id}" }] },

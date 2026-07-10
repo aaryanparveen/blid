@@ -18,7 +18,7 @@ export const other: Service[] = [
   { id: "chatgptshare", name: "ChatGPT Share", category: "other", templates: [{ url: "https://chatgpt.com/share/{id}" }], verify: false },
   { id: "osuforum", name: "osu!", group: "osu!", category: "other", templates: [{ label: "forum", url: "https://osu.ppy.sh/community/forums/topics/{id}" }], numeric: true },
   { id: "niconicoblog", name: "Niconico", group: "Niconico", category: "other", templates: [{ label: "blog", url: "https://blog.nicovideo.jp/niconews/{id}" }], numeric: true },
-  { id: "epicgames", name: "Epic Games", category: "other", templates: [{ url: "https://store.epicgames.com/en-US/p/{id}" }], verify: false },
+  { id: "epicgames", name: "Epic Games", category: "other", templates: [{ url: "https://store.epicgames.com/en-US/p/{id}" }] , check: "https://store-content.ak.epicgames.com/api/en-US/content/products/{id}", notFound: ["page was not found"] },
   { id: "battlenet", name: "Battle.net", category: "other", templates: [{ url: "https://battle.net/{id}" }] },
   { id: "coregames", name: "Core Games", category: "other", templates: [{ url: "https://www.coregames.com/games/{id}" }], dead: true },
   { id: "ngrok", name: "ngrok", category: "other", templates: [{ url: "https://{id}.ngrok-free.dev" }] },

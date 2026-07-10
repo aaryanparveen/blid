@@ -2,7 +2,7 @@ import type { Service } from "./types";
 
 export const social: Service[] = [
   { id: "discord", name: "Discord", category: "social", templates: [{ url: "https://discord.gg/{id}" }], notFound: ["group chat that"] },
-  { id: "telegram", name: "Telegram", category: "social", templates: [{ url: "https://t.me/{id}" }], verify: false },
+  { id: "telegram", name: "Telegram", category: "social", templates: [{ url: "https://t.me/{id}" }] , found: ["telegram: view @"] },
   { id: "whatsapp", name: "WhatsApp Group", category: "social", templates: [{ url: "https://chat.whatsapp.com/{id}" }], notFound: ['og:title" content=""'] },
   {
     id: "twitter",
@@ -66,7 +66,7 @@ export const social: Service[] = [
   { id: "anilist", name: "AniList", category: "social", templates: [{ url: "https://anilist.co/user/{id}" }], verify: false },
   { id: "allmanga", name: "AllManga", category: "social", templates: [{ url: "https://allmanga.to/bangumi/{id}" }], verify: false },
   { id: "fandom", name: "Fandom", category: "social", templates: [{ url: "https://{id}.fandom.com" }] },
-  { id: "pinit", name: "pin.it", category: "social", templates: [{ url: "https://pin.it/{id}" }], verify: false },
+  { id: "pinit", name: "pin.it", category: "social", templates: [{ url: "https://pin.it/{id}" }] , found: ["pinterest.com/pin/"] },
   { id: "osu", name: "osu!", group: "osu!", category: "social", templates: [{ label: "profile", url: "https://osu.ppy.sh/users/{id}" }] },
   { id: "niconicouser", name: "Niconico", group: "Niconico", category: "social", templates: [{ label: "user", url: "https://www.nicovideo.jp/user/{id}" }], numeric: true },
   { id: "guilded", name: "Guilded", category: "social", templates: [{ url: "https://www.guilded.gg/{id}" }], verify: false },
