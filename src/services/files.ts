@@ -37,6 +37,7 @@ export const files: Service[] = [
   { id: "pcloud", name: "pCloud", category: "files", templates: [{ url: "https://u.pcloud.link/publink/show?code={id}" }] },
   { id: "protondrive", name: "Proton Drive", category: "files", templates: [{ url: "https://drive.proton.me/urls/{id}" }], verify: false },
   { id: "anonfile", name: "AnonFile", category: "files", templates: [{ url: "https://anonfile.co/{id}" }], verify: false },
+  { id: "hashcloud", name: "hashcloud", category: "files", templates: [{ url: "https://hash.cloud/{id}" }], check: "https://firestore.googleapis.com/v1/projects/hashtagstorage/databases/(default)/documents:runQuery", checkBody: "{\"structuredQuery\":{\"from\":[{\"collectionId\":\"hashtags\"}],\"where\":{\"fieldFilter\":{\"field\":{\"fieldPath\":\"name\"},\"op\":\"EQUAL\",\"value\":{\"stringValue\":\"{ID}\"}}},\"limit\":1}}", found: ["\"document\""] },
   { id: "googlephotos", name: "Google Photos", category: "files", templates: [{ url: "https://photos.app.goo.gl/{id}" }] },
   { id: "tusd", name: "tus demo", category: "files", templates: [{ url: "https://tusd.tusdemo.net/files/{id}" }] },
   { id: "icloud", name: "iCloud", category: "files", templates: [{ url: "https://www.icloud.com/iclouddrive/{id}" }], verify: false },

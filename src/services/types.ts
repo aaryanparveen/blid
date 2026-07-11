@@ -37,4 +37,5 @@ export interface Service {
   dead?: boolean;
   browser?: boolean;
   check?: string;
+  checkBody?: string;
 }

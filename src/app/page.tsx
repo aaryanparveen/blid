@@ -17,7 +17,7 @@ interface Candidate {
   rows: LinkRow[];
 }
 
-const fill = (tpl: string, code: string) => tpl.split("{id}").join(code);
+const fill = (tpl: string, code: string) => tpl.split("{ID}").join(code.toUpperCase()).split("{id}").join(code);
 
 const POP_RANK = new Map(POPULARITY.map((id, i) => [id, i]));
 const popRank = (id: string) => POP_RANK.get(id) ?? Infinity;
@@ -59,7 +59,7 @@ export default function Page() {
       list: [] as Candidate[],
       excluded: [] as Candidate[],
       skipped: 0,
-      targets: [] as { probe: string; urls: string[]; id: string }[],
+      targets: [] as { probe: string; urls: string[]; id: string; code: string }[],
       uncheckUrls: [] as string[],
       deadUrls: [] as string[],
     };
@@ -77,15 +77,15 @@ export default function Page() {
       }
       active.push({ s, rows });
     }
-    const targets: { probe: string; urls: string[]; id: string }[] = [];
+    const targets: { probe: string; urls: string[]; id: string; code: string }[] = [];
     const uncheckUrls: string[] = [];
     const deadUrls: string[] = [];
     for (const { s, rows } of active) {
       const rowUrls = rows.map((r) => r.url);
       if (s.dead) deadUrls.push(...rowUrls);
       else if (s.verify === false) uncheckUrls.push(...rowUrls);
-      else if (s.check) targets.push({ probe: fill(s.check, code), urls: rowUrls, id: s.id });
-      else for (const u of rowUrls) targets.push({ probe: u, urls: [u], id: s.id });
+      else if (s.check) targets.push({ probe: fill(s.check, code), urls: rowUrls, id: s.id, code });
+      else for (const u of rowUrls) targets.push({ probe: u, urls: [u], id: s.id, code });
     }
     const toGroups = (items: { s: Service; rows: LinkRow[] }[]): Candidate[] => {
       const groups = new Map<string, Candidate & { rank: number }>();
@@ -121,7 +121,7 @@ export default function Page() {
   }, [uncheckUrls, deadUrls]);
 
   const runProbes = useCallback(
-    (items: { probe: string; urls: string[]; id: string }[], base: Record<string, ProbeResult> = {}) => {
+    (items: { probe: string; urls: string[]; id: string; code: string }[], base: Record<string, ProbeResult> = {}) => {
       const rid = ++runId.current;
       const pending: Record<string, ProbeResult> = { ...base };
       for (const t of items) for (const u of t.urls) pending[u] = { state: "pending" };
@@ -129,7 +129,7 @@ export default function Page() {
       runPool(
         items,
         async (t) => {
-          const res = await probe(t.probe, t.id);
+          const res = await probe(t.probe, t.id, t.code);
           if (runId.current !== rid) return;
           setStatuses((prev) => {
             const next = { ...prev };

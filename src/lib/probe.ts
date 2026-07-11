@@ -5,9 +5,9 @@ export interface ProbeResult {
   status?: number;
 }
 
-export async function probe(url: string, id: string): Promise<ProbeResult> {
+export async function probe(url: string, id: string, code = ""): Promise<ProbeResult> {
   try {
-    const res = await fetch(`/api/check?url=${encodeURIComponent(url)}&id=${encodeURIComponent(id)}`);
+    const res = await fetch(`/api/check?url=${encodeURIComponent(url)}&id=${encodeURIComponent(id)}&code=${encodeURIComponent(code)}`);
     const data = (await res.json()) as ProbeResult;
     if (!data || !data.state) return { state: "error" };
     return data;

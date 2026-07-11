@@ -128,9 +128,13 @@ async function viaImpit(
   }
 }
 
+const fillTpl = (tpl: string, code: string) =>
+  tpl.split("{ID}").join(code.toUpperCase()).split("{id}").join(code);
+
 export async function GET(req: NextRequest) {
   const url = req.nextUrl.searchParams.get("url");
   const id = req.nextUrl.searchParams.get("id") || "";
+  const code = req.nextUrl.searchParams.get("code") || "";
   if (!url || !/^https?:\/\//i.test(url)) {
     return Response.json({ state: "error" });
   }
@@ -139,8 +143,9 @@ export async function GET(req: NextRequest) {
   const markers = svc?.notFound;
   const foundMarkers = svc?.found;
   const wantBody = !!((markers && markers.length) || (foundMarkers && foundMarkers.length));
+  const postBody = svc?.checkBody ? fillTpl(svc.checkBody, code) : undefined;
 
-  if (svc?.browser && impit) {
+  if (svc?.browser && impit && !postBody) {
     const alt = await viaImpit(url, wantBody, markers, foundMarkers);
     if (alt) return Response.json(alt);
   }
@@ -154,9 +159,10 @@ export async function GET(req: NextRequest) {
       host = new URL(url).hostname;
     } catch {}
     const res = await uFetch(url, {
-      method: "GET",
+      method: postBody ? "POST" : "GET",
       redirect: "follow",
-      headers: headersFor(host),
+      headers: postBody ? { ...headersFor(host), "content-type": "application/json" } : headersFor(host),
+      body: postBody,
       dispatcher,
       signal: ctrl.signal,
     });
