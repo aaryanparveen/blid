@@ -23,4 +23,12 @@ export const other: Service[] = [
   { id: "coregames", name: "Core Games", category: "other", templates: [{ url: "https://www.coregames.com/games/{id}" }], dead: true },
   { id: "ngrok", name: "ngrok", category: "other", templates: [{ url: "https://{id}.ngrok-free.dev" }] },
   { id: "trycloudflare", name: "Cloudflare Tunnel", category: "other", templates: [{ url: "https://{id}.trycloudflare.com" }] },
+  { id: "royaleapi", name: "RoyaleAPI", category: "other", templates: [
+    { label: "player", url: "https://royaleapi.com/player/{id}" },
+    { label: "clan", url: "https://royaleapi.com/clan/{id}" },
+  ], verify: false },
+  { id: "pollmaker", name: "Poll Maker", group: "Poll Maker", category: "other", templates: [{ label: "short", url: "https://linkto.run/p/{id}" }] },
+  { id: "pollmakerdirect", name: "Poll Maker", group: "Poll Maker", category: "other", templates: [{ label: "poll", url: "https://poll-maker.com/poll{id}" }], verify: false },
+  { id: "kahoot", name: "Kahoot!", category: "other", templates: [{ url: "https://create.kahoot.it/details/{id}" }], check: "https://create.kahoot.it/rest/kahoots/{id}", found: ["\"uuid\""] },
+  { id: "quizizz", name: "Quizizz", category: "other", templates: [{ url: "https://quizizz.com/admin/quiz/{id}/public" }] },
 ];

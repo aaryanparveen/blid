@@ -6,6 +6,7 @@ export const code: Service[] = [
   { id: "gitlab", name: "GitLab", group: "GitLab", category: "code", templates: [{ label: "user", url: "https://gitlab.com/{id}" }], check: "https://gitlab.com/api/v4/users?username={id}", found: ["[{"] },
   { id: "bitbucket", name: "Bitbucket", group: "Bitbucket", category: "code", templates: [{ label: "user", url: "https://bitbucket.org/{id}" }] },
   { id: "codepen", name: "CodePen", category: "code", templates: [{ url: "https://codepen.io/{id}" }] },
+  { id: "leetcode", name: "LeetCode", category: "code", templates: [{ url: "https://leetcode.com/u/{id}/" }], verify: false },
   { id: "jsfiddle", name: "JSFiddle", category: "code", templates: [{ url: "https://jsfiddle.net/{id}" }], notFound: ["that page does not exist"] },
   { id: "replit", name: "Replit", category: "code", templates: [{ url: "https://replit.com/@{id}" }] },
   { id: "stackblitz", name: "StackBlitz", category: "code", templates: [{ url: "https://stackblitz.com/edit/{id}" }] },

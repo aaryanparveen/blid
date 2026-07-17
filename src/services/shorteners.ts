@@ -21,7 +21,7 @@ export const shorteners: Service[] = [
   { id: "sniply", name: "Sniply", category: "shorteners", templates: [{ url: "https://snip.ly/{id}" }] },
   { id: "tree", name: "tr.ee", category: "shorteners", templates: [{ url: "https://tr.ee/{id}" }] },
   { id: "onedrive", name: "OneDrive", category: "shorteners", templates: [{ url: "https://1drv.ms/{id}" }] },
-  { id: "lnkdin", name: "lnkd.in", category: "shorteners", templates: [{ url: "https://lnkd.in/{id}" }] },
+  { id: "lnkdin", name: "lnkd.in", category: "shorteners", templates: [{ url: "https://lnkd.in/{id}" }], browser: true, notFound: ["seem to find the page you"] },
   { id: "kutt", name: "Kutt", category: "shorteners", templates: [{ url: "https://kutt.it/{id}" }] },
   { id: "ouo", name: "Ouo.io", category: "shorteners", templates: [{ url: "https://ouo.io/{id}" }], notFound: ["link not found"] },
   { id: "adfocus", name: "AdFocus", category: "shorteners", templates: [{ url: "https://adfoc.us/{id}" }] },
@@ -46,4 +46,5 @@ export const shorteners: Service[] = [
   { id: "wame", name: "wa.me", category: "shorteners", templates: [{ url: "https://wa.me/{id}" }], verify: false },
   { id: "zmurl", name: "zmurl.us", category: "shorteners", templates: [{ url: "https://zmurl.us/{id}" }] },
   { id: "canva", name: "canva.me", category: "shorteners", templates: [{ url: "https://canva.me/{id}" }] , found: ["_branch_match_id"] },
+  { id: "traffco", name: "traff.co", category: "shorteners", templates: [{ url: "https://traff.co/{id}" }], verify: false },
 ];

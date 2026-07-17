@@ -5,7 +5,11 @@ export const files: Service[] = [
     { label: "file", url: "https://mega.nz/file/{id}" },
     { label: "legacy", url: "https://mega.nz/#!{id}" },
   ], verify: false },
-  { id: "mediafire", name: "Mediafire", category: "files", templates: [{ url: "https://www.mediafire.com/file/{id}" }] },
+  { id: "mediafire", name: "Mediafire", category: "files", templates: [
+    { label: "file", url: "https://www.mediafire.com/file/{id}" },
+    { label: "folder", url: "https://www.mediafire.com/folder/{id}" },
+  ], notFound: ["<title>my files</title>"] },
+  { id: "pdfcoffee", name: "PDFCoffee", category: "files", templates: [{ url: "https://pdfcoffee.com/{id}-pdf-free.html" }], notFound: ["oops! 404 not found"] },
   { id: "dropbox", name: "Dropbox", category: "files", templates: [{ url: "https://www.dropbox.com/s/{id}" }], notFound: ["dropbox - error"] },
   { id: "gdocs", name: "Google Docs", category: "files", templates: [{ url: "https://docs.google.com/document/d/{id}" }] },
   { id: "gforms", name: "Google Forms", category: "files", templates: [{ url: "https://docs.google.com/forms/d/{id}" }] },
