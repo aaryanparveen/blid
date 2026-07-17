@@ -42,10 +42,36 @@ export default function Page() {
   const [history, setHistory] = useState<string[]>([]);
   const [histOpen, setHistOpen] = useState(false);
   const [manual, setManual] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const runId = useRef(0);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setHistory(readHistory());
+    const cur = document.documentElement.getAttribute("data-theme");
+    setTheme(cur === "light" ? "light" : "dark");
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    try {
+      localStorage.setItem("blid-theme", next);
+    } catch {}
+  }, [theme]);
+
+  useEffect(() => {
+    const onPaste = (e: ClipboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+      const text = e.clipboardData?.getData("text");
+      if (!text) return;
+      setRaw(text);
+      inputRef.current?.focus();
+    };
+    window.addEventListener("paste", onPaste);
+    return () => window.removeEventListener("paste", onPaste);
   }, []);
 
   const resolved = useMemo(
@@ -218,6 +244,10 @@ export default function Page() {
       return next;
     });
 
+  const allOn = disabled.size === 0;
+  const toggleAll = () =>
+    setDisabled(allOn ? new Set<CategoryId>(CATEGORIES.map((c) => c.id)) : new Set<CategoryId>());
+
   const copyAll = async () => {
     const urls = shown.flatMap((c) => c.rows.map((r) => r.url));
     if (!urls.length) return;
@@ -240,6 +270,13 @@ export default function Page() {
             <span className="text-tx-3">/{TOTAL_LINKS}</span>
           </span>
         ) : null}
+        <button
+          onClick={toggleTheme}
+          aria-label="theme"
+          className="rounded-lg border border-line bg-bg-1/70 p-2 text-tx-2 shadow-[0_8px_24px_-14px_rgba(0,0,0,0.8)] backdrop-blur-xl transition-all hover:border-line-2 hover:text-red"
+        >
+          <Icon name={theme === "dark" ? "sun" : "moon"} className="h-3.5 w-3.5" />
+        </button>
         <button
           onClick={() => setHistOpen((v) => !v)}
           aria-label="history"
@@ -274,7 +311,7 @@ export default function Page() {
                     key={h}
                     onClick={() => applyHistory(h)}
                     title={h}
-                    className="truncate rounded-md px-2 py-1.5 text-left font-mono text-[0.7rem] text-tx-1 transition-colors hover:bg-white/[0.04] hover:text-red"
+                    className="truncate rounded-md px-2 py-1.5 text-left font-mono text-[0.7rem] text-tx-1 transition-colors hover:bg-hover hover:text-red"
                   >
                     {h}
                   </button>
@@ -290,7 +327,7 @@ export default function Page() {
       <div className="flex min-h-screen flex-col">
       <main className="relative z-10 mx-auto w-full max-w-5xl flex-1 px-5 pb-16">
         <header className="rise pt-16 pb-10 text-center">
-          <h1 className="text-6xl font-extrabold -tracking-[0.04em] text-white sm:text-7xl">
+          <h1 className="text-6xl font-extrabold -tracking-[0.04em] text-tx-0 sm:text-7xl">
             bl
             <span className="text-red" style={{ textShadow: "0 0 45px rgba(196,48,80,0.45)" }}>
               id.
@@ -302,9 +339,10 @@ export default function Page() {
         </header>
 
         <section className="rise" style={{ animationDelay: "0.08s" }}>
-          <div className="flex items-center rounded-2xl border border-line bg-white/[0.02] shadow-[0_24px_60px_-34px_rgba(0,0,0,0.85),0_2px_6px_-2px_rgba(0,0,0,0.5)] transition-all duration-300 focus-within:border-red/40 focus-within:bg-white/[0.03] focus-within:shadow-[0_28px_70px_-34px_rgba(0,0,0,0.9),0_0_0_1px_rgba(196,48,80,0.14)]">
+          <div className="flex items-center rounded-2xl border border-line bg-panel shadow-[0_24px_60px_-34px_rgba(0,0,0,0.85),0_2px_6px_-2px_rgba(0,0,0,0.5)] transition-all duration-300 focus-within:border-line-2 focus-within:bg-panel-2 focus-within:shadow-[0_28px_70px_-34px_rgba(0,0,0,0.9)]">
             <Icon name="search" className="ml-4 h-4 w-4 flex-none text-tx-3" />
             <input
+              ref={inputRef}
               value={raw}
               onChange={(e) => setRaw(e.target.value)}
               onKeyDown={(e) => {
@@ -351,6 +389,16 @@ export default function Page() {
           </div>
 
           <div className="mt-3 flex flex-wrap gap-1.5">
+            <button
+              onClick={toggleAll}
+              className={`flex items-center rounded-full border px-2.5 py-1 font-mono text-[0.6rem] lowercase tracking-wider transition-all ${
+                allOn
+                  ? "border-red/40 bg-red/10 text-tx-0"
+                  : "border-line-2 text-tx-1 hover:border-red/30 hover:text-tx-0"
+              }`}
+            >
+              all
+            </button>
             {CATEGORIES.map((cat) => {
               const off = disabled.has(cat.id);
               return (

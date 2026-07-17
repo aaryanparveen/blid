@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* theme tokens */
 @theme {
   --color-bg-0: #060607;
   --color-bg-1: #0d0d0f;
@@ -19,6 +20,10 @@
   --color-line: rgba(255, 255, 255, 0.06);
   --color-line-2: rgba(255, 255, 255, 0.11);
 
+  --color-panel: rgba(255, 255, 255, 0.015);
+  --color-panel-2: rgba(255, 255, 255, 0.03);
+  --color-hover: rgba(255, 255, 255, 0.05);
+
   --color-up: #1ca868;
   --color-down: #c44828;
   --color-unknown: #c49028;
@@ -29,6 +34,37 @@
 
 html {
   scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --color-bg-0: #e6e1d6;
+  --color-bg-1: #efebe3;
+  --color-bg-2: #dcd6c9;
+  --color-bg-3: #d0cabb;
+  --color-bg-4: #c3bcac;
+
+  --color-tx-0: #1a1813;
+  --color-tx-1: #403b33;
+  --color-tx-2: #5f594e;
+  --color-tx-3: #7e7768;
+
+  --color-red: #bb2444;
+  --color-red-soft: #a5223e;
+  --color-red-dim: #8c1e36;
+
+  --color-line: rgba(26, 21, 13, 0.16);
+  --color-line-2: rgba(26, 21, 13, 0.26);
+
+  --color-panel: color-mix(in oklab, var(--color-bg-1) 70%, transparent);
+  --color-panel-2: var(--color-bg-1);
+  --color-hover: rgba(26, 21, 13, 0.07);
+
+  --color-up: #12844e;
+  --color-down: #ba4420;
+  --color-unknown: #966a12;
+
+  color-scheme: light;
 }
 
 body {
@@ -61,6 +97,16 @@ body::after {
   background-size: 150px;
 }
 
+[data-theme="light"] body::before {
+  background:
+    radial-gradient(90% 55% at 50% -8%, rgba(191, 38, 70, 0.1), transparent 60%),
+    radial-gradient(120% 120% at 50% 0%, transparent 62%, rgba(24, 20, 16, 0.05));
+}
+
+[data-theme="light"] body::after {
+  opacity: 0.03;
+}
+
 ::selection {
   background: rgba(196, 48, 80, 0.25);
   color: #fff;
@@ -82,6 +128,14 @@ body::after {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-red);
+}
+
+html[data-theme="light"] {
+  scrollbar-color: rgba(24, 20, 16, 0.18) transparent;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(24, 20, 16, 0.16);
 }
 
 @keyframes spin {

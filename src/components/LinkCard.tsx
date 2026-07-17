@@ -51,7 +51,7 @@ export default function LinkCard({
         const u = rows[0]?.url;
         if (u) window.open(u, "_blank", "noopener,noreferrer");
       }}
-      className="group rise relative flex cursor-pointer flex-col overflow-hidden rounded-xl border border-line bg-white/[0.015] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-line-2 hover:bg-white/[0.028] hover:shadow-[0_22px_44px_-26px_rgba(0,0,0,0.85)]"
+      className="group rise relative flex cursor-pointer flex-col overflow-hidden rounded-xl border border-line bg-panel p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-line-2 hover:bg-panel-2 hover:shadow-[0_22px_44px_-26px_rgba(0,0,0,0.85)]"
       style={{ animationDelay: `${Math.min(index * 14, 320)}ms` }}
     >
       <span
@@ -59,7 +59,7 @@ export default function LinkCard({
         style={{ background: category.color }}
       />
       <div className="mb-3 flex items-center justify-between gap-2">
-        <h3 className="text-[0.92rem] font-semibold lowercase tracking-tight text-white">{name}</h3>
+        <h3 className="text-[0.92rem] font-semibold lowercase tracking-tight text-tx-0">{name}</h3>
         <span
           className="font-mono text-[0.55rem] font-medium lowercase tracking-[0.14em]"
           style={{ color: category.color }}
@@ -114,7 +114,7 @@ export default function LinkCard({
                 }}
                 aria-label="copy"
                 className={`flex-none rounded-md p-1 transition-colors ${
-                  copied === r.url ? "text-up" : "text-tx-3 hover:bg-white/[0.05] hover:text-red"
+                  copied === r.url ? "text-up" : "text-tx-3 hover:bg-hover hover:text-red"
                 }`}
               >
                 <Icon name="copy" className="h-3.5 w-3.5" />
@@ -125,7 +125,7 @@ export default function LinkCard({
                 rel="noreferrer"
                 aria-label="open"
                 onClick={(e) => e.stopPropagation()}
-                className="flex-none rounded-md p-1 text-tx-3 transition-colors hover:bg-white/[0.05] hover:text-red"
+                className="flex-none rounded-md p-1 text-tx-3 transition-colors hover:bg-hover hover:text-red"
               >
                 <Icon name="open" className="h-3.5 w-3.5" />
               </a>
