@@ -235,7 +235,7 @@ export default function Page() {
     <>
       <div className="fixed right-4 top-4 z-50 flex items-center gap-2">
         {code && showStatus ? (
-          <span className="border border-line bg-bg-1/80 px-2.5 py-1.5 font-mono text-[0.66rem] backdrop-blur-md">
+          <span className="rounded-lg border border-line bg-bg-1/70 px-2.5 py-1.5 font-mono text-[0.66rem] shadow-[0_8px_24px_-14px_rgba(0,0,0,0.8)] backdrop-blur-xl">
             <span className="text-up">{counts.found}</span>
             <span className="text-tx-3">/{TOTAL_LINKS}</span>
           </span>
@@ -243,8 +243,8 @@ export default function Page() {
         <button
           onClick={() => setHistOpen((v) => !v)}
           aria-label="history"
-          className={`border p-2 backdrop-blur-md transition-colors ${
-            histOpen ? "border-red/50 text-red" : "border-line bg-bg-1/80 text-tx-2 hover:text-red"
+          className={`rounded-lg border p-2 shadow-[0_8px_24px_-14px_rgba(0,0,0,0.8)] backdrop-blur-xl transition-all ${
+            histOpen ? "border-red/40 bg-red/10 text-red" : "border-line bg-bg-1/70 text-tx-2 hover:border-line-2 hover:text-red"
           }`}
         >
           <Icon name="clock" className="h-3.5 w-3.5" />
@@ -254,7 +254,7 @@ export default function Page() {
       {histOpen ? (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setHistOpen(false)} />
-          <div className="fixed right-4 top-[3.4rem] z-50 w-60 border border-line bg-bg-1/95 p-1.5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
+          <div className="fixed right-4 top-[3.4rem] z-50 w-60 rounded-xl border border-line bg-bg-1/90 p-1.5 shadow-[0_28px_70px_-28px_rgba(0,0,0,0.92)] backdrop-blur-xl">
             <div className="flex items-center justify-between px-2 py-1">
               <span className="font-mono text-[0.58rem] lowercase tracking-wider text-tx-3">history</span>
               {history.length ? (
@@ -274,7 +274,7 @@ export default function Page() {
                     key={h}
                     onClick={() => applyHistory(h)}
                     title={h}
-                    className="truncate px-2 py-1.5 text-left font-mono text-[0.7rem] text-tx-1 transition-colors hover:bg-white/[0.04] hover:text-red"
+                    className="truncate rounded-md px-2 py-1.5 text-left font-mono text-[0.7rem] text-tx-1 transition-colors hover:bg-white/[0.04] hover:text-red"
                   >
                     {h}
                   </button>
@@ -289,7 +289,7 @@ export default function Page() {
 
       <div className="flex min-h-screen flex-col">
       <main className="relative z-10 mx-auto w-full max-w-5xl flex-1 px-5 pb-16">
-        <header className="animate-[fadeUp_0.7s_ease-out_both] pt-16 pb-10 text-center">
+        <header className="rise pt-16 pb-10 text-center">
           <h1 className="text-6xl font-extrabold -tracking-[0.04em] text-white sm:text-7xl">
             bl
             <span className="text-red" style={{ textShadow: "0 0 45px rgba(196,48,80,0.45)" }}>
@@ -301,8 +301,8 @@ export default function Page() {
           </p>
         </header>
 
-        <section className="animate-[fadeUp_0.7s_ease-out_0.08s_both]">
-          <div className="flex items-center border border-line bg-white/[0.02] shadow-[0_30px_80px_-45px_rgba(0,0,0,0.95)] transition-colors focus-within:border-red/40">
+        <section className="rise" style={{ animationDelay: "0.08s" }}>
+          <div className="flex items-center rounded-2xl border border-line bg-white/[0.02] shadow-[0_24px_60px_-34px_rgba(0,0,0,0.85),0_2px_6px_-2px_rgba(0,0,0,0.5)] transition-all duration-300 focus-within:border-red/40 focus-within:bg-white/[0.03] focus-within:shadow-[0_28px_70px_-34px_rgba(0,0,0,0.9),0_0_0_1px_rgba(196,48,80,0.14)]">
             <Icon name="search" className="ml-4 h-4 w-4 flex-none text-tx-3" />
             <input
               value={raw}
@@ -357,8 +357,8 @@ export default function Page() {
                 <button
                   key={cat.id}
                   onClick={() => toggleCategory(cat.id)}
-                  className={`flex items-center gap-1.5 border px-2.5 py-1 font-mono text-[0.6rem] lowercase tracking-wider transition-colors ${
-                    off ? "border-line text-tx-3 line-through" : "border-line-2 text-tx-1 hover:text-tx-0"
+                  className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[0.6rem] lowercase tracking-wider transition-all ${
+                    off ? "border-line text-tx-3 line-through" : "border-line-2 text-tx-1 hover:border-red/30 hover:text-tx-0"
                   }`}
                 >
                   <span
@@ -373,7 +373,7 @@ export default function Page() {
         </section>
 
         {code ? (
-          <section className="mt-14 animate-[fadeUp_0.5s_ease-out_both]">
+          <section className="mt-14 rise">
             {showStatus || skipped || counts.uncheck ? (
               <div className="mb-4 flex flex-wrap items-center gap-3 border-b border-line pb-2">
                 {showStatus ? (
@@ -457,8 +457,8 @@ function Toggle({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-2 border px-3 py-1.5 font-mono text-[0.62rem] lowercase tracking-wider transition-colors ${
-        on ? "border-red/50 text-tx-0" : "border-line text-tx-3"
+      className={`flex items-center gap-2 rounded-lg border px-3 py-1.5 font-mono text-[0.62rem] lowercase tracking-wider transition-all ${
+        on ? "border-red/40 bg-red/10 text-tx-0" : "border-line text-tx-3 hover:border-line-2 hover:text-tx-1"
       }`}
     >
       <Icon name={icon} className={`h-3.5 w-3.5 ${on ? "text-red" : "text-tx-3"}`} />
@@ -471,7 +471,7 @@ function IconButton({ onClick, label, icon }: { onClick: () => void; label: stri
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-2 border border-line px-3 py-1.5 font-mono text-[0.62rem] lowercase tracking-wider text-tx-2 transition-colors hover:border-red hover:text-red"
+      className="flex items-center gap-2 rounded-lg border border-line px-3 py-1.5 font-mono text-[0.62rem] lowercase tracking-wider text-tx-2 transition-all hover:border-red/50 hover:text-red"
     >
       <Icon name={icon} className="h-3.5 w-3.5" />
       {label}
