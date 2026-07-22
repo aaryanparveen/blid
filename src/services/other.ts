@@ -30,5 +30,5 @@ export const other: Service[] = [
   { id: "pollmaker", name: "Poll Maker", group: "Poll Maker", category: "other", templates: [{ label: "short", url: "https://linkto.run/p/{id}" }] },
   { id: "pollmakerdirect", name: "Poll Maker", group: "Poll Maker", category: "other", templates: [{ label: "poll", url: "https://poll-maker.com/poll{id}" }], verify: false },
   { id: "kahoot", name: "Kahoot!", category: "other", templates: [{ url: "https://create.kahoot.it/details/{id}" }], check: "https://create.kahoot.it/rest/kahoots/{id}", found: ["\"uuid\""] },
-  { id: "quizizz", name: "Quizizz", category: "other", templates: [{ url: "https://wayground.com/explore/admin/quiz/{id}" }], check: "https://wayground.com/admin/quiz/{id}/public" },
+  { id: "quizizz", name: "Quizizz", category: "other", templates: [{ url: "https://wayground.com/explore/admin/quiz/{id}" }], check: "https://wayground.com/admin/quiz/{id}/public", len: 24 },
 ];

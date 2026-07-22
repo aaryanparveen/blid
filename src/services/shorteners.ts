@@ -47,4 +47,6 @@ export const shorteners: Service[] = [
   { id: "zmurl", name: "zmurl.us", category: "shorteners", templates: [{ url: "https://zmurl.us/{id}" }] },
   { id: "canva", name: "canva.me", category: "shorteners", templates: [{ url: "https://canva.me/{id}" }] , found: ["_branch_match_id"] },
   { id: "traffco", name: "traff.co", category: "shorteners", templates: [{ url: "https://traff.co/{id}" }], verify: false },
+  { id: "boxdit", name: "boxd.it", category: "shorteners", templates: [{ url: "https://boxd.it/{id}" }] },
+  { id: "igme", name: "ig.me", category: "shorteners", templates: [{ url: "https://ig.me/{id}" }], verify: false },
 ];

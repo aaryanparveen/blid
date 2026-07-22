@@ -73,7 +73,7 @@ export const people: Service[] = [
   { id: "wm_freesound", name: "freesound", category: "music", templates: [{ url: "https://freesound.org/people/{id}/section/stats/?ajax=1" }], notFound: ["<h1>page not found</h1>"] },
   { id: "wm_setlistfm", name: "setlist.fm", category: "music", templates: [{ url: "https://www.setlist.fm/user/{id}" }], notFound: ["sorry, the page you requested doesn't exist"] },
   { id: "wm_smule", name: "smule", category: "music", browser: true, templates: [{ url: "https://www.smule.com/api/profile/?handle={id}" }], notFound: ["\"profile_not_found\":true"] },
-  { id: "wm_trakt", name: "trakt", category: "video", templates: [{ url: "https://trakt.tv/users/{id}" }], notFound: ["the page you were looking for doesn't exist (404) - trakt.tv"] },
+  { id: "wm_trakt", name: "trakt", category: "video", templates: [{ url: "https://trakt.tv/users/{id}" }], verify: false },
   { id: "wm_gravatar", name: "Gravatar", category: "images", templates: [{ url: "https://en.gravatar.com/{id}.json" }], found: ["\"entry\""] },
   { id: "wm_iconfinder", name: "Iconfinder", category: "images", verify: false, templates: [{ url: "https://www.iconfinder.com/{id}" }], notFound: ["we couldn't find the page you are looking for."] },
   { id: "wm_imageshack", name: "ImageShack", category: "images", templates: [{ url: "https://imageshack.com/user/{id}" }] },
